@@ -7,6 +7,7 @@ import {
   Body,
   UseGuards,
   Request,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/order.dto';
@@ -65,7 +66,7 @@ export class OrderController {
   @ApiResponse({ status: 200, description: 'Returns the order' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Order not found' })
-  getOrderById(@Param('id') id: number, @Request() req) {
+  getOrderById(@Param('id', ParseIntPipe) id: number, @Request() req) {
     return this.orderService.getOrderById(id, req.user);
   }
 
@@ -81,7 +82,7 @@ export class OrderController {
   @ApiResponse({ status: 200, description: 'Order successfully cancelled' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Order not found' })
-  cancelOrder(@Param('id') id: number, @Request() req) {
+  cancelOrder(@Param('id', ParseIntPipe) id: number, @Request() req) {
     return this.orderService.cancelOrder(id, req.user.id);
   }
 }

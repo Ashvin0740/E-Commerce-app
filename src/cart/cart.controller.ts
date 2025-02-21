@@ -8,6 +8,7 @@ import {
   Param,
   UseGuards,
   Request,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CreateCartItemDto, UpdateCartItemDto } from './dto/cart-item.dto';
@@ -52,7 +53,7 @@ export class CartController {
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Cart item not found' })
   updateCartItem(
-    @Param('id') id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() updateCartItemDto: UpdateCartItemDto,
     @Request() req,
   ) {
@@ -65,7 +66,7 @@ export class CartController {
   @ApiResponse({ status: 200, description: 'Cart item successfully removed' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
   @ApiResponse({ status: 404, description: 'Cart item not found' })
-  removeFromCart(@Param('id') id: number, @Request() req) {
+  removeFromCart(@Param('id', ParseIntPipe) id: number, @Request() req) {
     return this.cartService.removeFromCart(id, req.user.id);
   }
 }

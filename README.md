@@ -52,4 +52,3 @@ Access the API documentation at:
 ```bash
 http://localhost:3000/api
 ```
-# E-Commerce-app
